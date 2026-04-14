@@ -10,7 +10,7 @@ for i = 1:length(filenames)
     t = readtable(filename);
     allData = [allData; t];
 end
-
+water_lvl=table2array(allData(:,5));
 %% Correct the Dates
 
 date_day = allData(:,1);
@@ -31,4 +31,13 @@ dates = (datenum(num_day) + hours_extended);
 dates_full = NaN(length(dates), 1);
 dates_full(:,1) = dates; %final time variable for water levels
 
+%% Correcting Hurrican Dates
+
+Hurricane_data=readmatrix('Storm Track Data.xlsx'); %date, lat
+
+dates_hurricane= Hurricane_data(:,1)+datenum('01-00-1900');
+
 %%
+figure (1); clf
+plot(dates_full, water_lvl)
+datetick('x','mmm yy')
