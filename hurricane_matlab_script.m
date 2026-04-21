@@ -11,6 +11,7 @@ for i = 1:length(filenames)
     allData = [allData; t];
 end
 water_lvl=table2array(allData(:,5));
+
 %% Correct the Dates
 
 date_day = allData(:,1);
@@ -30,6 +31,8 @@ hours_extended = repmat(hours, (height(allData)/24), 1);
 dates = (datenum(num_day) + hours_extended);
 dates_full = NaN(length(dates), 1);
 dates_full(:,1) = dates; %final time variable for water levels
+%%baseline_index = find(dates_full == 736696);
+%%baseline_three_year = mean(water_lvl(1:baseline_index));
 
 %% Correcting Hurricane Dates
 
@@ -85,7 +88,7 @@ ylabel("Water Level Anomaly (ft)")
 
 %% Question 3
 
-cats = Hurricane_data_for_dates(:,7);
+strength_cats = Hurricane_data_for_dates(:,7);
 lats_hurricane = Hurricane_data_for_dates(:,2);
 lons_hurricane = -1.*Hurricane_data_for_dates(:,3);
 
@@ -93,8 +96,37 @@ gi_lat = 29.2633;
 gi_lon = -89.9566;
 
 dists = NaN(8,1);
+dist_cats = NaN(8,1);
 
 for i = 1:length(lats_hurricane)
     arclen = distance(gi_lat, gi_lon, lats_hurricane(i), lons_hurricane(i));
-    dists(i) = deg2km(arclen);
+    dist = deg2km(arclen);
+    dists(i) = dist;
+    if dist <= 23
+        dist_cats(i) = 5;
+    elseif (dist > 23)&&(dist <= 45)
+        dist_cats(i) = 4;
+    elseif (dist > 45)&&(dist <= 67)
+        dist_cats(i) = 3;
+    elseif (dist > 67)&&(dist <= 89)
+        dist_cats(i) = 2;
+    elseif dist > 89
+        dist_cats(i) = 1;
+    end
 end
+
+intensity = dist_cats .* strength_cats;
+
+instant_water_level = NaN(8,1);
+for i = 1:8
+    instant_index = find(abs(dates_full-dates_hurricane(i)) < 0.001);
+    instant_water_level(i) = water_lvl(instant_index);
+end
+
+figure(4); clf
+subplot(3,1,1)
+plot(strength_cats, instant_water_level, ".")
+subplot(3,1,2)
+plot(dist_cats, instant_water_level, ".")
+subplot(3,1,3)
+plot(intensity, instant_water_level, ".")

@@ -85,12 +85,30 @@ ylabel("Water Level Anomaly (ft)")
 
 %% Question 3
 
-cats = Hurricane_data_for_dates(:,7);
+strength_cats = Hurricane_data_for_dates(:,7);
 lats_hurricane = Hurricane_data_for_dates(:,2);
-lons_hurricane = -1Hurricane_data_for_dates(:,3);
+lons_hurricane = -1.*Hurricane_data_for_dates(:,3);
 
 gi_lat = 29.2633;
 gi_lon = -89.9566;
 
-arclen = distance(gi_lat, gi_lon, lats_hurricane(1), lons_hurricane(1));
-dist1 = deg2km(arclen);
+dists = NaN(8,1);
+dist_cats = NaN(8,1);
+
+for i = 1:length(lats_hurricane)
+    arclen = distance(gi_lat, gi_lon, lats_hurricane(i), lons_hurricane(i));
+    dist = deg2km(arclen);
+    dists(i) = dist;
+    if dist <= 23
+        dist_cats(i) = 5;
+    elseif (dist > 23)&&(dist <= 45)
+        dist_cats(i) = 4;
+    elseif (dist > 45)&&(dist <= 67)
+        dist_cats(i) = 3;
+    elseif (dist > 67)&&(dist <= 89)
+        dist_cats(i) = 2;
+    elseif (dist > 45)&&(dist <= 67)
+        dist_cats(i) = 3;
+
+end
+
