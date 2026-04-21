@@ -31,13 +31,30 @@ dates = (datenum(num_day) + hours_extended);
 dates_full = NaN(length(dates), 1);
 dates_full(:,1) = dates; %final time variable for water levels
 
-%% Correcting Hurrican Dates
+%% Correcting Hurricane Dates
 
 Hurricane_data=readmatrix('Storm Track Data.xlsx'); %date, lat
 
 dates_hurricane= Hurricane_data(:,1)+datenum('01-00-1900');
 
-%%
+%% 
 figure (1); clf
-plot(dates_full, water_lvl)
-datetick('x','mmm yy')
+title('water level')
+plot(dates_full, water_lvl, ".")
+datetick('x','mmm yyyy')
+
+pred_water_lvl = table2array(allData(:,3));
+anomaly = water_lvl - pred_water_lvl;
+smoothed_anom = movmean(anomaly, 6);
+
+figure (2); clf
+title('water level anomaly')
+for i = 1:length(dates_hurricane)
+    xline(dates_hurricane(i), lineWidth=2, Color = [0.8, 0.8, 0.8])
+end
+hold on
+plot(dates_full, smoothed_anom, ".")
+datetick('x','mmm yyyy')
+hold off
+
+
