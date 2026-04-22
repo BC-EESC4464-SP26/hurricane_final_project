@@ -125,8 +125,49 @@ end
 
 figure(4); clf
 subplot(3,1,1)
-plot(strength_cats, instant_water_level, ".")
+plot(strength_cats, instant_water_level, ".", MarkerSize = 15)
+hold on
+p1 = polyfit(strength_cats, instant_water_level, 1); 
+x1 = linspace(0,6,100);
+y1 = polyval(p1, x1);
+plot(x1, y1, "--",'LineWidth', 2)
+slope1 = p1(1);
+text(0.5, 2.5, sprintf('Slope = %.2f', slope1))
+xlim([0,6])
+xlabel("Strength Category")
+ylim([0,3])
+ylabel("Storm Surge (ft)")
+title("Storm Strength Category vs Water Level")
+hold off
+
 subplot(3,1,2)
-plot(dist_cats, instant_water_level, ".")
+plot(dist_cats, instant_water_level, ".", MarkerSize = 15)
+hold on
+p2 = polyfit(dist_cats, instant_water_level, 1); 
+x2 = linspace(0,6,100);
+y2 = polyval(p2, x2);
+plot(x2, y2, "--",'LineWidth', 2)
+slope2 = p2(1);
+text(0.5, 2.5, sprintf('Slope = %.2f', slope2))
+xlim([0,6])
+xlabel("Strength Category")
+ylim([0,3])
+ylabel("Storm Surge (ft)")
+title("Storm Distance Category vs Water Level")
+hold off
+
 subplot(3,1,3)
-plot(intensity, instant_water_level, ".")
+plot(intensity, instant_water_level, ".", MarkerSize = 15)
+hold on
+p3 = polyfit(intensity, instant_water_level, 1); 
+x3 = linspace(0,21,100);
+y3 = polyval(p3, x3);
+plot(x3, y3, "--",'LineWidth', 2)
+slope3 = p3(1);
+text(0.5, 2.5, sprintf('Slope = %.2f', slope3))
+xlim([0,21])
+xlabel("Strength Category")
+ylim([0,3])
+ylabel("Storm Surge (ft)")
+title("Storm Aggregate Intensity Category vs Water Level")
+hold off

@@ -11,6 +11,7 @@ for i = 1:length(filenames)
     allData = [allData; t];
 end
 water_lvl=table2array(allData(:,5));
+
 %% Correct the Dates
 
 date_day = allData(:,1);
@@ -30,6 +31,8 @@ hours_extended = repmat(hours, (height(allData)/24), 1);
 dates = (datenum(num_day) + hours_extended);
 dates_full = NaN(length(dates), 1);
 dates_full(:,1) = dates; %final time variable for water levels
+%%baseline_index = find(dates_full == 736696);
+%%baseline_three_year = mean(water_lvl(1:baseline_index));
 
 %% Correcting Hurricane Dates
 
@@ -107,8 +110,59 @@ for i = 1:length(lats_hurricane)
         dist_cats(i) = 3;
     elseif (dist > 67)&&(dist <= 89)
         dist_cats(i) = 2;
-    elseif (dist > 45)&&(dist <= 67)
-        dist_cats(i) = 3;
-
+    elseif dist > 89
+        dist_cats(i) = 1;
+    end
 end
 
+intensity = dist_cats .* strength_cats;
+
+instant_water_level = NaN(8,1);
+for i = 1:8
+    instant_index = find(abs(dates_full-dates_hurricane(i)) < 0.001);
+    instant_water_level(i) = water_lvl(instant_index);
+end
+
+figure(4); clf
+subplot(3,1,1)
+plot(strength_cats, instant_water_level, ".", MarkerSize = 15)
+hold on
+p1 = polyfit(strength_cats, instant_water_level, 1); 
+x1 = linspace(0,6,100);
+y1 = polyval(p1, x1);
+plot(x1, y1, "--",'LineWidth', 2)
+xlim([0,6])
+xlabel("Strength Category")
+ylim([0,3])
+ylabel("Storm Surge (ft)")
+title("Storm Strength Category vs Water Level")
+hold off
+
+subplot(3,1,2)
+plot(dist_cats, instant_water_level, ".", MarkerSize = 15)
+hold on
+p2 = polyfit(strength_cats, instant_water_level, 1); 
+x2 = linspace(0,6,100);
+y2 = polyval(p2, x2);
+plot(x2, y2, "--",'LineWidth', 2)
+slope1 = p1(1);
+xlim([0,6])
+xlabel("Strength Category")
+ylim([0,3])
+ylabel("Storm Surge (ft)")
+title("Storm Distance Category vs Water Level")
+hold off
+
+subplot(3,1,3)
+plot(intensity, instant_water_level, ".", MarkerSize = 15)
+hold on
+p3 = polyfit(strength_cats, instant_water_level, 1); 
+x3 = linspace(0,21,100);
+y3 = polyval(p3, x3);
+plot(x3, y3, "--",'LineWidth', 2)
+xlim([0,21])
+xlabel("Strength Category")
+ylim([0,3])
+ylabel("Storm Surge (ft)")
+title("Storm Aggregate Intensity Category vs Water Level")
+hold off
