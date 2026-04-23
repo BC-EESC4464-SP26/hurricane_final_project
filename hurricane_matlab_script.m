@@ -62,7 +62,7 @@ hold on
 plot(dates_full, smoothed_anom, ".")
 ylabel("Water Level Anomaly (ft)")
 datetick('x','mmm yyyy')
-legend(Location = "southwest")
+legend({'Hurricanes', '', '', '', '', '', '', '', 'Water Level'}, Location = "southwest")
 hold off
 
 %% Question 2
@@ -81,8 +81,12 @@ for i = 1:length(dates_hurricane)
 end
 
 figure (3); clf
+b = bar(flip(names_hurricane), flip(hurricane_max));
 title("Max water level anomaly from each hurricane")
-bar(flip(names_hurricane), flip(hurricane_max))
+xtips = b.XEndPoints;
+ytips = b.YEndPoints;
+labels = string(flip(hurricane_max));
+text(xtips, ytips, labels, 'HorizontalAlignment', 'center','VerticalAlignment', 'bottom');
 xlabel("Hurricanes (oldest to most recent)")
 ylabel("Water Level Anomaly (ft)")
 
