@@ -129,49 +129,52 @@ end
 
 figure(4); clf
 subplot(3,1,1)
-plot(strength_cats, instant_water_level, ".", MarkerSize = 15)
+plot(strength_cats, hurricane_max, ".", MarkerSize = 15)
+text(strength_cats, hurricane_max, names_hurricane,'VerticalAlignment','baseline','HorizontalAlignment','left','FontSize',8, 'Color', [0, 0.4470, 0.7410])
 hold on
-p1 = polyfit(strength_cats, instant_water_level, 1); 
+p1 = polyfit(strength_cats, hurricane_max, 1); 
 x1 = linspace(0,6,100);
 y1 = polyval(p1, x1);
 plot(x1, y1, "--",'LineWidth', 2)
 slope1 = p1(1);
-text(0.5, 2.5, sprintf('Slope = %.2f', slope1))
+text(0.25, 2, sprintf('Slope = %.2f', slope1))
 xlim([0,6])
 xlabel("Strength Category")
-ylim([0,3])
-ylabel("Storm Surge (ft)")
+ylim([0,4])
+ylabel("Max Storm Surge (ft)")
 title("Storm Strength Category vs Water Level")
 hold off
 
 subplot(3,1,2)
-plot(dist_cats, instant_water_level, ".", MarkerSize = 15)
+plot(dist_cats, hurricane_max, ".", MarkerSize = 15)
+text(dist_cats, hurricane_max, names_hurricane, 'VerticalAlignment', 'top', 'HorizontalAlignment','left','FontSize',8, 'Color', [0, 0.4470, 0.7410])
 hold on
-p2 = polyfit(dist_cats, instant_water_level, 1); 
+p2 = polyfit(dist_cats, hurricane_max, 1); 
 x2 = linspace(0,6,100);
 y2 = polyval(p2, x2);
 plot(x2, y2, "--",'LineWidth', 2)
 slope2 = p2(1);
-text(0.5, 2.5, sprintf('Slope = %.2f', slope2))
+text(0.1, 2, sprintf('Slope = %.2f', slope2))
 xlim([0,6])
-xlabel("Strength Category")
-ylim([0,3])
-ylabel("Storm Surge (ft)")
+xlabel("Distance Category")
+ylim([0,4])
+ylabel("Max Storm Surge (ft)")
 title("Storm Distance Category vs Water Level")
 hold off
 
 subplot(3,1,3)
-plot(intensity, instant_water_level, ".", MarkerSize = 15)
+plot(intensity, hurricane_max, ".", MarkerSize = 15)
+text(intensity, hurricane_max, names_hurricane,'VerticalAlignment','bottom','HorizontalAlignment','center','FontSize',8, 'Color', [0, 0.4470, 0.7410])
 hold on
-p3 = polyfit(intensity, instant_water_level, 1); 
+p3 = polyfit(intensity, hurricane_max, 1); 
 x3 = linspace(0,21,100);
 y3 = polyval(p3, x3);
 plot(x3, y3, "--",'LineWidth', 2)
 slope3 = p3(1);
-text(0.5, 2.5, sprintf('Slope = %.2f', slope3))
+text(16, 3, sprintf('Slope = %.2f', slope3))
 xlim([0,21])
-xlabel("Strength Category")
-ylim([0,3])
-ylabel("Storm Surge (ft)")
+xlabel("Intensity Category (Strength * Distance)")
+ylim([0,4])
+ylabel("Max Storm Surge (ft)")
 title("Storm Aggregate Intensity Category vs Water Level")
 hold off
