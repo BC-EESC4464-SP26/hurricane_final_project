@@ -181,10 +181,10 @@ text(1.1, 3.25, "Barry (TS)",'FontSize',8, 'Color', [0, 0.4470, 0.7410])
 text(2.1, 2.95, "Marco (TS)",'FontSize',8, 'Color', [0, 0.4470, 0.7410])
 text(5.1, 2.75, "Cristobal (TS)",'FontSize',8, 'Color', [0, 0.4470, 0.7410])
 text(3.5, 2.1, "Nate (H1)",'FontSize',8, 'Color', [0, 0.4470, 0.7410])
-text(1, 2.1, "Francine (H1)",'FontSize',8, 'Color', [0, 0.4470, 0.7410])
+text(1.3, 2, "Francine (H1)",'FontSize',8, 'Color', [0, 0.4470, 0.7410])
 text(2.1, 1, "Claudette (TS)",'FontSize',8, 'Color', [0, 0.4470, 0.7410])
 text(12.1, 1.5, "Zeta (H3)",'FontSize',8, 'Color', [0, 0.4470, 0.7410])
-text(19.5, 3.6, "Ida (H4)",'FontSize',8, 'Color', [0, 0.4470, 0.7410])
+text(20, 3.5, "Ida (H4)",'FontSize',8, 'Color', [0, 0.4470, 0.7410])
 %text(intensity, hurricane_max, names_hurricane,'VerticalAlignment','bottom','HorizontalAlignment','center','FontSize',8, 'Color', [0, 0.4470, 0.7410])
 hold on
 p3 = polyfit(intensity, hurricane_max, 1); 
