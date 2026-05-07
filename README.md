@@ -10,6 +10,6 @@ This reposity contains the necessary analysis materials for our final project an
 Water level was downloaded from https://tidesandcurrents.noaa.gov/waterlevels.html?id=8761724 at the hourly interval for every year from 2014-2024 using MLLW as the baseline unit. These datasets are included in the repository using the naming convention "tide_station_20xx.csv". Hurricane data was manually extracted from the storm reports for each storm within 60 nautical miles. Storm reports were accessed from https://coast.noaa.gov/hurricanes/. The data used in our analysis is included in the repository in the Storm Track Data.xlsx file. 
 
 ### Copying/Running This Repository (Locally)
-Make sure you have Git installed on your machine. For downloads/instructions for Windows/Mac/Linux, check out the Git website and/or the great tutorial video by UW eScience.
+Make sure you have Git installed on your machine. For downloads/instructions for Windows/Mac/Linux, navigate to the Git website for detailed instructions.
 In command line, navigate to where you would like the cloned directory, and run the following in your command line:
 git clone https://github.com/BC-EESC4464-SP26/hurricane_final_project.git
